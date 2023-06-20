@@ -9,13 +9,19 @@ public class ValveController : MonoBehaviour
     private GameObject pipe;
     [SerializeField]
     private Sprite[] sprites;
+    [SerializeField]
+    private WaterLevelManager waterManager;
 
     private bool _isValveOpen = false;
 
     public void CloseValve()
     {
-        //call for change water level
         ChangeSprite();
+        waterManager.IsValveOpenSet(_isValveOpen);
+        if (_isValveOpen)
+        {
+            waterManager.ChangeWaterLevel(pipe.transform);
+        }
     }
 
     private void ChangeSprite()
