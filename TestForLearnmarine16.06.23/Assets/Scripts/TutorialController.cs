@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Tutorial messages")]
+    [SerializeField]
+    private GameObject[] AboutMesagges;
+    
+    [SerializeField]
+    private int _numberOfCurrentMessage = 0;
+
+    private void FixedUpdate()
     {
-        
+        if (Input.GetMouseButtonUp(0))
+        {
+            CloseCurrentMessage();
+            _numberOfCurrentMessage++;
+            OpenNextMessage();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CloseCurrentMessage()
     {
-        
+        AboutMesagges[_numberOfCurrentMessage].SetActive(false);
+    }
+
+    private void OpenNextMessage()
+    {
+        bool isLastMessage = _numberOfCurrentMessage == AboutMesagges.Length;
+        if (isLastMessage)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            AboutMesagges[_numberOfCurrentMessage].SetActive(true);
+        }
     }
 }
