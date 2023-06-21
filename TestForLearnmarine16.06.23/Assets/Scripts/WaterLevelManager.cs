@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WaterLevelManager : MonoBehaviour
 {
+    public static bool IsChangingWaterLevel;
+
     [Header("Water in tanks")]
     [SerializeField]
     private Transform waterInTankA;
@@ -25,7 +27,14 @@ public class WaterLevelManager : MonoBehaviour
         _step = step;
         if (IsWaterLevelCanChange(pipe))
         {
+            IsChangingWaterLevel = true;
+            UIController.SetEnableForLiftingButtons(false);
             StartCoroutine(Culldown(pipe));
+        }
+        else
+        {
+            IsChangingWaterLevel = false;
+            UIController.SetEnableForLiftingButtons(true);
         }
     }
 
@@ -36,23 +45,24 @@ public class WaterLevelManager : MonoBehaviour
 
     private bool IsWaterLevelCanChange(Transform pipe)
     {
-        float actualLevelOfPipe = pipe.position.y - pipe.GetComponent<CapsuleCollider>().radius * 0.15f;
+        float actualLevelOfPipe = pipe.position.y - pipe.GetComponent<CapsuleCollider>().radius * 0.2f;
 
-        if ((waterInTankA.localScale.y > actualLevelOfPipe || 
-            waterInTankB.localScale.y > actualLevelOfPipe) && 
+        if ((waterInTankA.localScale.y >= actualLevelOfPipe || 
+            waterInTankB.localScale.y >= actualLevelOfPipe) && 
             (waterInTankA.localScale.y > waterInTankB.localScale.y))
         {
             _isWaterInTankAHigher = true;
             _isWaterInTankBHigher = false;
             return true;
-        } else if ((waterInTankA.localScale.y > actualLevelOfPipe ||
-            waterInTankB.localScale.y > actualLevelOfPipe) &&
+        } else if ((waterInTankA.localScale.y >= actualLevelOfPipe ||
+            waterInTankB.localScale.y >= actualLevelOfPipe) &&
             (waterInTankA.localScale.y < waterInTankB.localScale.y))
           {
             _isWaterInTankBHigher = true;
             _isWaterInTankAHigher = false;
             return true;
           }
+
         return false;
     }
 
@@ -62,7 +72,13 @@ public class WaterLevelManager : MonoBehaviour
         WaterTransfusion();
         if (IsWaterLevelCanChange(pipe) && _isValveOpen)
         {
+            IsChangingWaterLevel = true;
             StartCoroutine(Culldown(pipe));
+        }
+        else
+        {
+            IsChangingWaterLevel = false;
+            UIController.SetEnableForLiftingButtons(true);
         }
     }
 

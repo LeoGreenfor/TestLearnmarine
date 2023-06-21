@@ -14,7 +14,7 @@ public class ValveController : MonoBehaviour
 
     private bool _isValveOpen = false;
 
-    public void CloseValve()
+    public void TwistValve()
     {
         ChangeSprite();
         waterManager.IsValveOpenSet(_isValveOpen);
@@ -22,6 +22,15 @@ public class ValveController : MonoBehaviour
         {
             waterManager.ChangeWaterLevel(pipe.transform);
         }
+    }
+
+    public void CloseValve()
+    {
+        Sprite currentSprite;
+        currentSprite = sprites[0];
+
+        _isValveOpen = false;
+        GetComponentInChildren<Image>().sprite = currentSprite;
     }
 
     private void ChangeSprite()

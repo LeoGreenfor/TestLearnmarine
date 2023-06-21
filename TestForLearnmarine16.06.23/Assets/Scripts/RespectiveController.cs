@@ -21,18 +21,22 @@ public class RespectiveController : MonoBehaviour
 
     public void LeftPlus()
     {
+        OnWaterTransfusion();
         ChangeLevel(waterInTankA, true);
     }
     public void RightPlus()
     {
+        OnWaterTransfusion();
         ChangeLevel(waterInTankB, true);
     }
     public void LeftMinus()
     {
+        OnWaterTransfusion();
         ChangeLevel(waterInTankA, false);
     }
     public void RightMinus()
     {
+        OnWaterTransfusion();
         ChangeLevel(waterInTankB, false);
     }
 
@@ -61,4 +65,12 @@ public class RespectiveController : MonoBehaviour
         water.transform.localScale = newTransform;
     }
 
+    private void OnWaterTransfusion()
+    {
+        bool isOnWaterTransfusion = WaterLevelManager.IsChangingWaterLevel;
+        if (!isOnWaterTransfusion)
+        {
+            FindObjectOfType<ValveController>().CloseValve();
+        }
+    }
 }

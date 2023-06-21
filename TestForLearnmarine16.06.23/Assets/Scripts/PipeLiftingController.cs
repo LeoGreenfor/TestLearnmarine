@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PipeLiftingController : MonoBehaviour
 {
@@ -16,13 +17,19 @@ public class PipeLiftingController : MonoBehaviour
     [SerializeField]
     private float step;
 
-    public void UpPipe()
+    public void LiftPipe(bool state)
     {
-        ChangeLevel(true);
+        OnLifting();
+        ChangeLevel(state);
     }
-    public void DownPipe()
+
+    public void ChangeInteractible(bool state)
     {
-        ChangeLevel(false);
+        Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+        foreach (Button button in buttons)
+        {
+            button.interactable = state;
+        }
     }
 
     /// <summary>
@@ -48,5 +55,10 @@ public class PipeLiftingController : MonoBehaviour
         Vector3 newTransform = pipe.transform.position;
         newTransform = new Vector3(newTransform.x, clampedY, newTransform.z);
         pipe.transform.position = newTransform;
+    }
+
+    private void OnLifting()
+    {
+        FindObjectOfType<ValveController>().CloseValve();
     }
 }
