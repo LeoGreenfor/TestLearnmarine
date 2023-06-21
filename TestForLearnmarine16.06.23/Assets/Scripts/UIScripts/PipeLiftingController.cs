@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class controll level of pipe and allows user to change it.
+/// </summary>
 public class PipeLiftingController : MonoBehaviour
 {
     [SerializeField]
@@ -17,12 +20,20 @@ public class PipeLiftingController : MonoBehaviour
     [SerializeField]
     private float step;
 
+    /// <summary>
+    /// Lift pipe by state.
+    /// </summary>
+    /// <param name="state"></param>
     public void LiftPipe(bool state)
     {
         OnLifting();
         ChangeLevel(state);
     }
 
+    /// <summary>
+    /// Change interactible value for all pipe lifting buttons.
+    /// </summary>
+    /// <param name="state"></param>
     public void ChangeInteractible(bool state)
     {
         Button[] buttons = gameObject.GetComponentsInChildren<Button>();
@@ -57,6 +68,9 @@ public class PipeLiftingController : MonoBehaviour
         pipe.transform.position = newTransform;
     }
 
+    /// <summary>
+    /// Auto close valve if pipe is on lifting.
+    /// </summary>
     private void OnLifting()
     {
         FindObjectOfType<ValveController>().CloseValve();

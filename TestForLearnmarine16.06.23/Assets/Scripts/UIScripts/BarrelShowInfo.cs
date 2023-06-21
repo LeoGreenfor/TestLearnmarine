@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class show actual info about each tank.
+/// </summary>
 public class BarrelShowInfo : MonoBehaviour
 {
     [Header("Water tank colliders")]
@@ -22,7 +25,6 @@ public class BarrelShowInfo : MonoBehaviour
 
     private bool _isMouseOnTankA = false;
     private bool _isMouseOnTankB = false;
-    private bool _isShowingInfo = false;
 
     private void FixedUpdate()
     {
@@ -32,6 +34,9 @@ public class BarrelShowInfo : MonoBehaviour
         tankBInfo.gameObject.SetActive(_isMouseOnTankB);
     }
 
+    /// <summary>
+    /// Checking, if mouse pointer is on one of tank. If yes - remember on witch tank.
+    /// </summary>
     private void CheckWhichCollider()
     {
          RaycastHit hit;
@@ -59,6 +64,9 @@ public class BarrelShowInfo : MonoBehaviour
          }
     }
 
+    /// <summary>
+    /// Updating info about tanks.
+    /// </summary>
     private void UpdateInfo()
     {
         string template = "Fullness of the barrel ";
@@ -67,6 +75,11 @@ public class BarrelShowInfo : MonoBehaviour
         tankBInfo.GetComponentInChildren<TMP_Text>().text = template + CalculatePercent("WaterB");
     }
 
+    /// <summary>
+    /// Ñounts how much a certain tank is filled with water.
+    /// </summary>
+    /// <param name="tankName"></param>
+    /// <returns>Occupancy percentage</returns>
     private string CalculatePercent(string tankName)
     {
         GameObject tank = GameObject.Find(tankName);

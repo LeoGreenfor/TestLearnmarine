@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class allows user to change level of water in tanks by press specific buttons.
+/// </summary>
 public class RespectiveController : MonoBehaviour
 {
     [Header("Water in tanks")]
@@ -19,21 +22,36 @@ public class RespectiveController : MonoBehaviour
     [SerializeField]
     private float step;
 
+    /// <summary>
+    /// Increase water level in tank A.
+    /// </summary>
     public void LeftPlus()
     {
         OnWaterTransfusion();
         ChangeLevel(waterInTankA, true);
     }
+
+    /// <summary>
+    /// Increase water level in tank B.
+    /// </summary>
     public void RightPlus()
     {
         OnWaterTransfusion();
         ChangeLevel(waterInTankB, true);
     }
+
+    /// <summary>
+    /// Decrease water level in tank A.
+    /// </summary>
     public void LeftMinus()
     {
         OnWaterTransfusion();
         ChangeLevel(waterInTankA, false);
     }
+
+    /// <summary>
+    /// Decrease water level in tank B.
+    /// </summary>
     public void RightMinus()
     {
         OnWaterTransfusion();
@@ -65,6 +83,10 @@ public class RespectiveController : MonoBehaviour
         water.transform.localScale = newTransform;
     }
 
+    /// <summary>
+    /// Auto close valve if water transfusion is over and user 
+    /// try to change water level themself.
+    /// </summary>
     private void OnWaterTransfusion()
     {
         bool isOnWaterTransfusion = WaterLevelManager.IsChangingWaterLevel;

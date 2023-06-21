@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class controll the valve.
+/// </summary>
 public class ValveController : MonoBehaviour
 {
     [SerializeField]
@@ -14,6 +17,9 @@ public class ValveController : MonoBehaviour
 
     private bool _isValveOpen = false;
 
+    /// <summary>
+    /// Twisting valve. If valve opening than start to transfusion water.
+    /// </summary>
     public void TwistValve()
     {
         ChangeSprite();
@@ -24,6 +30,9 @@ public class ValveController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Close the valve.
+    /// </summary>
     public void CloseValve()
     {
         Sprite currentSprite;
@@ -33,6 +42,9 @@ public class ValveController : MonoBehaviour
         GetComponentInChildren<Image>().sprite = currentSprite;
     }
 
+    /// <summary>
+    /// Change state of valve to next state.
+    /// </summary>
     private void ChangeSprite()
     {
         Sprite currentSprite;

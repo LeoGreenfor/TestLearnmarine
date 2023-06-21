@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class change level of water in tanks by making
+/// they same level.
+/// </summary>
 public class WaterLevelManager : MonoBehaviour
 {
     public static bool IsChangingWaterLevel;
@@ -22,6 +26,10 @@ public class WaterLevelManager : MonoBehaviour
     private bool _isValveOpen;
     private float _step;
 
+    /// <summary>
+    /// Change water level, if its possible
+    /// </summary>
+    /// <param name="pipe"></param>
     public void ChangeWaterLevel(Transform pipe)
     {
         _step = step;
@@ -38,11 +46,21 @@ public class WaterLevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set the isValveOpen variable
+    /// </summary>
+    /// <param name="valveState"></param>
     public void IsValveOpenSet(bool valveState)
     {
         _isValveOpen = valveState;
     }
 
+    /// <summary>
+    /// Checking, if its possible to change water level in tanks by 
+    /// checking level of pipe and level of water in each tank.
+    /// </summary>
+    /// <param name="pipe"></param>
+    /// <returns>True if possible, false if not.</returns>
     private bool IsWaterLevelCanChange(Transform pipe)
     {
         float actualLevelOfPipe = pipe.position.y - pipe.GetComponent<CapsuleCollider>().radius * 0.2f;
@@ -66,6 +84,11 @@ public class WaterLevelManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Makes a smooth leveling of water levels in tanks.
+    /// </summary>
+    /// <param name="pipe"></param>
+    /// <returns></returns>
     private IEnumerator Culldown(Transform pipe)
     {
         yield return new WaitForSeconds(speed);
@@ -82,6 +105,9 @@ public class WaterLevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Transfusion water from tank with higher level of water to lower.
+    /// </summary>
     private void WaterTransfusion()
     {
         float newLevelWaterA = waterInTankA.localScale.y;
