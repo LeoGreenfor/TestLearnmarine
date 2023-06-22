@@ -10,16 +10,17 @@ public class InfoShower : MonoBehaviour
     private Image infoImage;
 
     private BarrelShowInfo _barrelShowInfo;
-    private GameObject _waterInTank;
 
     private void Start()
     {
         _barrelShowInfo = FindObjectOfType<BarrelShowInfo>();
-        _waterInTank = transform.GetChild(0).gameObject;
     }
 
+    /// <summary>
+    /// Turn on and of info box about tank when mouse was clicked.
+    /// </summary>
     private void OnMouseDown()
     {
-        _barrelShowInfo.ShowInfo(infoImage, _waterInTank.name);
+        _barrelShowInfo.ShowInfo(infoImage);
     }
 }

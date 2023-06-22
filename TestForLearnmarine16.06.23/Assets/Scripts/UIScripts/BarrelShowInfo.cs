@@ -9,82 +9,44 @@ using UnityEngine.UI;
 /// </summary>
 public class BarrelShowInfo : MonoBehaviour
 {
-    /*[Header("Water tank colliders")]
-    [SerializeField]
-    private BoxCollider tankA;
-    [SerializeField]
-    private BoxCollider tankB;
     [Header("Info boxes")]
     [SerializeField]
     private Image tankAInfo;
     [SerializeField]
-    private Image tankBInfo;*/
+    private Image tankBInfo;
     [Header("Global info")]
     [SerializeField]
     private float maximumWaterLevel;
 
-    private bool _isMouseOnTankA = false;
-    private bool _isMouseOnTankB = false;
-
-    public void ShowInfo(Image tankInfoImage, string tankName)
+    /// <summary>
+    /// Turn on and off an info box about specific tank. 
+    /// </summary>
+    /// <param name="tankInfoImage">Info box of specific tank</param>
+    public void ShowInfo(Image tankInfoImage)
     {
-        UpdateInfo(tankInfoImage, tankName);
         bool activeStateOfTank = !tankInfoImage.gameObject.activeSelf;
         tankInfoImage.gameObject.SetActive(activeStateOfTank);
-        
     }
 
-    /*private void FixedUpdate()
+    private void FixedUpdate()
     {
-        CheckWhichCollider();
-        //UpdateInfo();
-        tankAInfo.gameObject.SetActive(_isMouseOnTankA);
-        tankBInfo.gameObject.SetActive(_isMouseOnTankB);
-    }*/
-
-    /// <summary>
-    /// Checking, if mouse pointer is on one of tank. If yes - remember on witch tank.
-    /// </summary>
-    private void CheckWhichCollider()
-    {
-         RaycastHit hit;
-         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-         if (!Physics.Raycast(ray, out hit))
-        {
-            _isMouseOnTankA = false;
-            _isMouseOnTankB = false;
-            /*Collider collider = hit.collider;
-
-             if (collider.Equals(tankA))
-             {
-                 _isMouseOnTankA = true;
-                 _isMouseOnTankB = false;
-             }
-             else if (collider.Equals(tankB))
-             {
-                 _isMouseOnTankB = true;
-                 _isMouseOnTankA = false;
-             }*/
-         }
+        UpdateInfo();
     }
 
     /// <summary>
     /// Updating info about tanks.
     /// </summary>
-    private void UpdateInfo(Image tankInfoImage, string tankName)
+    private void UpdateInfo()
     {
         string template = "Fullness of the barrel ";
-        tankInfoImage.GetComponentInChildren<TMP_Text>().text = template + CalculatePercent(tankName);
-        
-        //tankAInfo.GetComponentInChildren<TMP_Text>().text = template + CalculatePercent("WaterA");
-        //tankBInfo.GetComponentInChildren<TMP_Text>().text = template + CalculatePercent("WaterB");
+        tankAInfo.GetComponentInChildren<TMP_Text>().text = template + CalculatePercent("WaterA");
+        tankBInfo.GetComponentInChildren<TMP_Text>().text = template + CalculatePercent("WaterB");
     }
 
     /// <summary>
     /// Ñounts how much a certain tank is filled with water.
     /// </summary>
-    /// <param name="tankName"></param>
+    /// <param name="tankName">Name of water object in specific tank</param>
     /// <returns>Occupancy percentage</returns>
     private string CalculatePercent(string tankName)
     {
