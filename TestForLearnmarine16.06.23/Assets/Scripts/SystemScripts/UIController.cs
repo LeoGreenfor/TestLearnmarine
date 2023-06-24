@@ -27,4 +27,9 @@ public class UIController : MonoBehaviour
     {
         PipeLiftingController.ChangeInteractible(enableState);
     }
+
+    public void QuitApp()
+    {
+        Application.Quit();
+    }
 }
